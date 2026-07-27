@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tengis Chinbat — CS Student &amp; Builder</title>
+<meta name="description" content="Portfolio of Tengis Chinbat — computer science student, transfer applicant, builder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0d14;
+    --bg-raised: #12151f;
+    --bg-card: #161a26;
+    --line: #262b3a;
+    --text: #e9e9f0;
+    --text-dim: #9498ab;
+    --text-faint: #5c6178;
+    --amber: #e8a33d;
+    --amber-dim: #a97a34;
+    --violet: #8c93ff;
+    --green: #6fcf97;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,163,61,0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 20%, rgba(140,147,255,0.06), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,13,20,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
+  .logo{ font-family: var(--font-mono); font-weight:600; font-size: 15px; color: var(--text); letter-spacing: -0.02em; }
+  .logo span{ color: var(--amber); }
+  .navlinks{ display:flex; gap: 28px; font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
+  .navlinks a{ transition: color .15s ease; }
+  .navlinks a:hover{ color: var(--amber); }
+  .navlinks .num{ color: var(--text-faint); margin-right: 4px; }
+  @media (max-width: 640px){ .navlinks{ display:none; } }
+
+  /* HERO */
+  header.hero{ padding: 88px 0 72px; }
+  .eyebrow{
+    font-family: var(--font-mono); font-size: 13px; color: var(--amber);
+    display:flex; align-items:center; gap: 10px; margin-bottom: 22px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 3px rgba(111,207,151,0.15); }
+
+  h1.name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(38px, 6vw, 62px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  h1.name .accent{ color: var(--amber); }
+
+  .terminal{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+    max-width: 640px;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-raised);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.r{ background:#e5555f; } .dot.y{ background:#e8b93d; } .dot.g{ background:#6fcf97; }
+  .terminal-title{ font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); margin-left: 6px; }
+  .terminal-body{ padding: 22px 20px; font-family: var(--font-mono); font-size: 14px; min-height: 168px; }
+  .terminal-body .line{ color: var(--text-dim); margin-bottom: 6px; }
+  .terminal-body .prompt{ color: var(--green); }
+  .terminal-body .cmd{ color: var(--text); }
+  #typewriter{ color: var(--amber); white-space: pre-wrap; }
+  .cursor{ display:inline-block; width:8px; height:16px; background: var(--amber); vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  .hero-ctas{ display:flex; gap:14px; margin-top: 28px; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--font-mono); font-size: 13px; padding: 11px 18px; border-radius: 7px;
+    border: 1px solid var(--line); transition: all .15s ease; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn.primary{ background: var(--amber); color: #16130a; border-color: var(--amber); font-weight: 600; }
+  .btn.primary:hover{ background:#f3b658; }
+  .btn.ghost{ color: var(--text-dim); }
+  .btn.ghost:hover{ border-color: var(--text-dim); color: var(--text); }
+
+  /* SECTION SHARED */
+  section{ padding: 64px 0; border-top: 1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom: 34px; }
+  .section-num{ font-family: var(--font-mono); color: var(--text-faint); font-size: 14px; }
+  h2{ font-family: var(--font-display); font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 760px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-copy p{ color: var(--text-dim); font-size: 16px; margin-bottom: 16px; max-width: 54ch; }
+  .about-copy strong{ color: var(--text); font-weight: 600; }
+
+  .facts{ display:flex; flex-direction: column; gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .fact{ display:flex; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .fact:last-child{ border-bottom: none; }
+  .fact-k{ font-family: var(--font-mono); color: var(--text-faint); }
+  .fact-v{ color: var(--text); text-align: right; }
+
+  /* PROJECTS */
+  .projects{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 760px){ .projects{ grid-template-columns: 1fr; } }
+  .card{
+    background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 24px; display:flex; flex-direction: column; gap: 14px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{ border-color: var(--amber-dim); transform: translateY(-2px); }
+  .card-top{ display:flex; justify-content: space-between; align-items:flex-start; gap: 10px; }
+  .card-title{ font-family: var(--font-display); font-weight: 600; font-size: 19px; }
+  .status{ font-family: var(--font-mono); font-size: 10.5px; padding: 4px 9px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.02em; }
+  .status.progress{ background: rgba(232,163,61,0.14); color: var(--amber); border: 1px solid rgba(232,163,61,0.3); }
+  .status.planned{ background: rgba(140,147,255,0.12); color: var(--violet); border: 1px solid rgba(140,147,255,0.28); }
+  .status.archive{ background: rgba(148,152,171,0.1); color: var(--text-dim); border: 1px solid var(--line); }
+  .card-desc{ color: var(--text-dim); font-size: 14px; flex-grow: 1; }
+  .tags{ display:flex; flex-wrap: wrap; gap: 7px; }
+  .tag{ font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); background: var(--bg-raised); border: 1px solid var(--line); padding: 4px 9px; border-radius: 5px; }
+  .card-link{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-faint); }
+
+  .placeholder-card{ border-style: dashed; align-items: center; justify-content: center; text-align: center; color: var(--text-faint); }
+  .placeholder-card .card-title{ color: var(--text-faint); }
+
+  /* EXPERIENCE */
+  .timeline{ display:flex; flex-direction: column; }
+  .tl-item{ display:grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .tl-item:last-child{ border-bottom: none; }
+  .tl-date{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-faint); padding-top: 2px; }
+  .tl-role{ font-weight: 600; font-size: 15px; margin-bottom: 3px; }
+  .tl-org{ color: var(--text-dim); font-size: 13.5px; }
+  @media (max-width: 560px){ .tl-item{ grid-template-columns: 1fr; gap: 4px; } }
+
+  /* HONORS */
+  .honors{ display:flex; flex-wrap: wrap; gap: 10px; }
+  .honor{ font-size: 13px; padding: 9px 14px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; color: var(--text-dim); }
+  .honor strong{ color: var(--text); }
+
+  /* SKILLS */
+  .skills-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 700px){ .skills-grid{ grid-template-columns: 1fr; } }
+  .skill-group h3{ font-family: var(--font-mono); font-size: 12px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+  .skill-row{ display:flex; justify-content: space-between; font-size: 13.5px; padding: 7px 0; border-bottom: 1px solid var(--line); color: var(--text-dim); }
+  .skill-row span:last-child{ color: var(--text-faint); font-family: var(--font-mono); font-size: 11.5px; }
+
+  /* CONTACT */
+  .contact-inner{ display:flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+  .contact-big{ font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); font-weight: 600; letter-spacing: -0.01em; max-width: 18ch; }
+  .contact-big a{ color: var(--amber); border-bottom: 1px solid var(--amber-dim); }
+  .contact-links{ display:flex; gap: 16px; }
+  .icon-link{ display:flex; align-items:center; gap:8px; font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; }
+  .icon-link:hover{ color: var(--text); border-color: var(--text-faint); }
+
+  footer{ padding: 30px 0 50px; text-align:center; font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">tengis<span>.</span>dev</div>
+    <div class="navlinks">
+      <a href="#about"><span class="num">01</span>about</a>
+      <a href="#building"><span class="num">02</span>building</a>
+      <a href="#experience"><span class="num">03</span>experience</a>
+      <a href="#contact"><span class="num">04</span>contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">available — transferring fall 2027</div>
+    <h1 class="name">Tengis Chinbat —<br>building toward <span class="accent">computer science.</span></h1>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="terminal-title">tengis@transfer — zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="line"><span class="prompt">$</span> <span class="cmd">whoami</span></div>
+        <div id="typewriter"></div><span class="cursor" id="cursor"></span>
+      </div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#building" class="btn primary">$ cd ./building</a>
+      <a href="#contact" class="btn ghost">$ open ./contact</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>I'm a <strong>first-generation college student</strong> currently at College of Lake County, working toward a transfer into a Computer Science program for Fall 2027. Before this, I grew up speaking <strong>Mongolian</strong> at home, learned English, and picked up <strong>Japanese</strong> along the way — I hold an Honorable Mention on the National Japanese Examination and I'm part of the Japanese National Honor Society.</p>
+        <p>I've spent the last few years as a <strong>math tutor</strong> — I lead the tutor team at MGL Math Center and TA for math and social studies at my high school — and for years before that I competed as a <strong>floor gymnast</strong>. Both taught me the same thing in different ways: show up, drill the fundamentals, and the hard parts eventually click.</p>
+        <p>Right now I'm learning <strong>Next.js, Tailwind CSS, and Supabase</strong> to build real full-stack projects with a small team, while also serving as a Transfer Student Ambassador — helping other students navigate the exact process I'm going through myself.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><span class="fact-k">location</span><span class="fact-v">Glenview, IL</span></div>
+        <div class="fact"><span class="fact-k">currently</span><span class="fact-v">College of Lake County</span></div>
+        <div class="fact"><span class="fact-k">transferring</span><span class="fact-v">Fall 2027</span></div>
+        <div class="fact"><span class="fact-k">focus</span><span class="fact-v">Computer Science</span></div>
+        <div class="fact"><span class="fact-k">languages</span><span class="fact-v">Mongolian · English · 日本語</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="building">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">02</span><h2>What I'm building</h2></div>
+    <div class="projects">
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">Booking System</div>
+          <div class="status progress">in progress</div>
+        </div>
+        <div class="card-desc">A scheduling platform for local service businesses to manage appointments online. Rebuilding a rough earlier version properly — real auth, real data model, real UI this time.</div>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">Tailwind CSS</span><span class="tag">Supabase</span><span class="tag">GitHub</span>
+        </div>
+        <div class="card-link">// repo link coming soon</div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-title">Suite Management App</div>
+          <div class="status planned">planned</div>
+        </div>
+        <div class="card-desc">Lets property owners collect rent online, manage maintenance requests, review applications, and post listings — for apartments and suites alike, not just one niche.</div>
+        <div class="tags">
+          <span class="tag">Next.js</span><span class="tag">Tailwind CSS</span><span class="tag">Supabase</span>
+        </div>
+        <div class="card-link">// up next after the booking system</div>
+      </div>
+
+      <div class="card placeholder-card">
+        <div class="card-title">Early Web Projects (2023)</div>
+        <div class="card-desc" style="text-align:center;">HTML/CSS/JS work from PineCone Academy — swapping these in as soon as the files come through.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">03</span><h2>Experience</h2></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2025 — present</div>
+        <div><div class="tl-role">Math Tutor, Lead of the Tutor Team</div><div class="tl-org">MGL Math Center</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024 — present</div>
+        <div><div class="tl-role">Teaching Assistant — Math &amp; Social Studies</div><div class="tl-org">Glenbrook South High School</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2023 — present</div>
+        <div><div class="tl-role">Transfer Student Ambassador, Leader</div><div class="tl-org">Glenbrook South High School</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2024 — present</div>
+        <div><div class="tl-role">Barista / Waiter</div><div class="tl-org">Blue Kale Cafe</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <div class="honors">
+        <div class="honor"><strong>QuestBridge</strong> National College Match Finalist, 2025</div>
+        <div class="honor"><strong>National Honor Society</strong>, 2025</div>
+        <div class="honor"><strong>Japanese National Honor Society</strong></div>
+        <div class="honor">National Japanese Exam — <strong>Honorable Mention</strong></div>
+        <div class="honor">Titan Of The Month — Student Award</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">—</span><h2>Skills</h2></div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Languages / Code</h3>
+        <div class="skill-row"><span>HTML / CSS / Java</span><span>advanced</span></div>
+        <div class="skill-row"><span>JavaScript / Python</span><span>beginner</span></div>
+        <div class="skill-row"><span>Next.js / Supabase</span><span>learning</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <div class="skill-row"><span>GitHub</span><span>intermediate</span></div>
+        <div class="skill-row"><span>Figma</span><span>intermediate</span></div>
+        <div class="skill-row"><span>Canva / VS Code</span><span>intermediate</span></div>
+      </div>
+      <div class="skill-group">
+        <h3>Spoken</h3>
+        <div class="skill-row"><span>Mongolian</span><span>native</span></div>
+        <div class="skill-row"><span>English</span><span>proficient</span></div>
+        <div class="skill-row"><span>Japanese</span><span>beginner</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num">04</span><h2>Contact</h2></div>
+    <div class="contact-inner">
+      <div class="contact-big">Reach me at <a href="mailto:tchinbat61edu@gmail.com">tchinbat61edu@gmail.com</a></div>
+      <div class="contact-links">
+        <a class="icon-link" href="mailto:tchinbat61edu@gmail.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg>
+          email
+        </a>
+        <!-- TODO: replace # with your actual GitHub URL -->
+        <a class="icon-link" href="#" aria-label="GitHub (add your link)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.9 18.3 5.2 18.3 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3Z"/></svg>
+          github
+        </a>
+        <!-- TODO: replace # with your actual LinkedIn URL -->
+        <a class="icon-link" href="#" aria-label="LinkedIn (add your link)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.55 4.78 5.87V21h-4v-5.5c0-1.3-.02-3-1.85-3-1.85 0-2.13 1.4-2.13 2.9V21h-4V9Z"/></svg>
+          linkedin
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>// built by hand — Next.js version coming once I finish learning it</footer>
+
+<script>
+  const lines = [
+    "> CS student, targeting a Fall 2027 transfer",
+    "> first-gen, multilingual — Mongolian · English · 日本語",
+    "> math tutor & former floor gymnast",
+    "> learning Next.js, Tailwind, and Supabase",
+    "> building slowly, shipping anyway"
+  ];
+
+  const el = document.getElementById('typewriter');
+  const cursor = document.getElementById('cursor');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    el.textContent = lines.join('\n');
+    cursor.style.display = 'none';
+  } else {
+    let lineIndex = 0, charIndex = 0, deleting = false;
+    let displayed = [];
+
+    function tick() {
+      const current = lines[lineIndex];
+
+      if (!deleting) {
+        charIndex++;
+        displayed[lineIndex] = current.slice(0, charIndex);
+        el.textContent = displayed.join('\n');
+        if (charIndex === current.length) {
+          deleting = lineIndex === lines.length - 1 ? false : false;
+          if (lineIndex < lines.length - 1) {
+            lineIndex++; charIndex = 0;
+            setTimeout(tick, 260);
+            return;
+          } else {
+            setTimeout(resetCycle, 2600);
+            return;
+          }
+        }
+      }
+      setTimeout(tick, 26 + Math.random() * 28);
+    }
+
+    function resetCycle(){
+      displayed = []; lineIndex = 0; charIndex = 0;
+      el.textContent = '';
+      setTimeout(tick, 400);
+    }
+
+    tick();
+  }
+
+  // mobile nav fallback: smooth scroll already handled by CSS scroll-behavior
+</script>
+
+</body>
+</html>
